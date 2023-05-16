@@ -6,9 +6,9 @@ import {useClientsStore} from "@/store/useClientsStore";
 import {storeToRefs} from "pinia";
 
 const getClients = async(page:number):Promise<Client[]> =>{
-    await new Promise(resolve => {
+   /* await new Promise(resolve => {
         setTimeout(()=> resolve(true), 1500)
-    });
+    });*/
     const {data} = await  clientsApi.get<Client[]>(`/clients?_page=${page}`);
     return data;
 }
@@ -26,8 +26,8 @@ const useClientsComposable = ()=>{
 
     watch(data, dataClientesMagica =>{
         if(dataClientesMagica)
-            store.setClients(dataClientesMagica)
-    });
+            store.setClients(dataClientesMagica);
+    },{immediate:true});
 
     return {
         isLoading,
